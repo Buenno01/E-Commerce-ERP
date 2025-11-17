@@ -21,7 +21,18 @@
         "declaration": true,
         "declarationMap": true,
         "emitDeclarationOnly": false,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@shared/*": [
+                "./src/shared/*"
+            ],
+            "@modules/*": [
+                "./src/modules/*"
+            ]
+        }
     },
     "include": [
         "src/**/*"
