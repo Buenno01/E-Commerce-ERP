@@ -1,0 +1,44 @@
+{
+  "name": "e-commerce-erp",
+  "version": "1.0.0",
+  "description": "An erp for managing e-commerce resources, manage your products and market places in one software",
+  "keywords": [
+    "erp",
+    "e-commerce",
+    "typescript",
+    "graphql",
+    "express"
+  ],
+  "license": "MIT",
+  "author": "Buenno01",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec node --loader ts-node/esm src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "graphql": "^16.12.0",
+    "graphql-http": "^1.22.4"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.15.2",
+    "@types/express": "^5.0.5",
+    "@types/node": "^22.19.1",
+    "typescript": "^5.9.3",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "swc": true,
+    "compilerOptions": {
+      "module": "esnext",
+      "moduleResolution": "bundler"
+    }
+  }
+}
