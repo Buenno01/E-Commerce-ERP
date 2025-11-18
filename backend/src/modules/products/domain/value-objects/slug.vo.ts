@@ -9,4 +9,18 @@ export class SlugVO {
             throw new Error('Slug must be in lowercase and contain only letters and numbers and hyphens');
         }
     }
+
+    public static fromString(value: string): SlugVO {
+        const slug = value
+            .trim()
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+
+        return new SlugVO(slug);
+    }
 }
