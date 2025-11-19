@@ -4,7 +4,7 @@ export interface CreateProductDTO {
   description?: string;
   price: {
     amount: number;
-    currency: string;
+    currencyCode: string;
   };
   quantity?: number;
   sku?: string;
