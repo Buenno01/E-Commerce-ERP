@@ -19,7 +19,7 @@ export class ProductCreateUseCase {
             new ProductNameVO(product.name),
             slug,
             product.description ?? '',
-            new MoneyVO(product.price.amount, product.price.currency),
+            new MoneyVO(product.price.amount, product.price.currencyCode),
             product.quantity ?? 0,
             new Date(),
             new Date(),
