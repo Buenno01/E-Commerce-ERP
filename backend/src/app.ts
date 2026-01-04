@@ -13,7 +13,9 @@ class App {
     this.setupConfig();
     this.setupRoutes();
     this.app.listen(this.port, () => {
-      console.log(`App is running on port ${this.port}`);
+      console.log(`App is running on: http://localhost:${this.port}/`);
+      console.log(`GraphQL endpoint available on: http://localhost:${this.port}/graphql`);
+      console.log(`GraphiQL IDE available on: http://localhost:${this.port}/graphiql`);
     });
   }
 
