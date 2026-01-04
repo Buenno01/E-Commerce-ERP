@@ -1,6 +1,7 @@
 import express from 'express';
 import graphqlRoutes from './routes/graphql';
 import healthcheckRoutes from './routes/healthcheck';
+import graphiqlRoute from './routes/graphiql';
 
 class App {
   constructor(
@@ -17,6 +18,7 @@ class App {
   }
 
   private setupRoutes() {
+    this.app.use(graphiqlRoute)
     this.app.use(graphqlRoutes);
     this.app.use(healthcheckRoutes);
   }
