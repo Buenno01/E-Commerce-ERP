@@ -21,7 +21,9 @@
     "paths": {
       "@/*": ["./*"],
       "@modules/*": ["./modules/*"],
-      "@products/*": ["./modules/products/*"]
+      "@products/*": ["./modules/products/*"],
+      "@infra/*": ["./infra/*"],
+      "@prisma-generated/*": ["./infra/prisma/generated/*"]
     }
   },
   "include": ["src/**/*"],
