@@ -20,7 +20,7 @@ export class ProductMapper {
     });
   }
 
-  static toPersistance(product: ProductEntity): PrismaProduct {
+  static toPersistence(product: ProductEntity): PrismaProduct {
     return {
       createdAt: product.createdAt,
       description: product.description,
