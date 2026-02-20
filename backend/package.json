@@ -14,12 +14,14 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "test": "test",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",
@@ -32,9 +34,11 @@
   "devDependencies": {
     "@types/express": "^5.0.5",
     "@types/node": "^22.19.11",
+    "@vitest/coverage-v8": "^4.0.18",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "ts-node": {
     "esm": true,
