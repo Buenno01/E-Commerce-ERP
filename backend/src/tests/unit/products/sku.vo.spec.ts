@@ -8,6 +8,7 @@ describe("PRODUCTS:VALUE_OBJECT SkuVO", () => {
       "Forest | Snowboard",
       '24" LCD Monitor',
       "#&%#&!@*(#(()!@$",
+      "Blank space test",
     ];
 
     invalidValues.forEach((name) => {
