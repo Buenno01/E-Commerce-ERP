@@ -80,5 +80,10 @@ describe("PRODUCTS:VALUE_OBJECT SlugVO", () => {
         "motherboard-amd-ddr4-b560",
       );
     });
+
+    test("With invalid resulting string", () => {
+      expect(() => SlugVO.fromString("#4$%*")).toThrow();
+      expect(() => SlugVO.fromString("----")).toThrow();
+    });
   });
 });
