@@ -15,12 +15,15 @@ export const ProductType = new GraphQLObjectType({
     },
     sku: {
       type: GraphQLString,
+      resolve: (product) => product.sku.value,
     },
     name: {
       type: new GraphQLNonNull(GraphQLString),
+      resolve: (product) => product.name.value,
     },
     slug: {
       type: new GraphQLNonNull(GraphQLString),
+      resolve: (product) => product.slug.value,
     },
     description: {
       type: GraphQLString,
