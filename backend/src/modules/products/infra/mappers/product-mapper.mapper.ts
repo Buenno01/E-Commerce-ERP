@@ -27,7 +27,7 @@ export class ProductMapper {
       id: product.id,
       name: product.name.value,
       priceAmount: product.price.amount,
-      priceCurrencyCode: product.price.currency,
+      priceCurrencyCode: product.price.currencyCode,
       quantity: product.quantity,
       sku: product.sku.value,
       slug: product.slug.value,
