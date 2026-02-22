@@ -9,7 +9,7 @@ import { CreateProductDTO } from "../dtos/product-create.dto";
 export class ProductCreateUseCase {
   constructor(private readonly productRepository: ProductRepositoryInterface) {}
 
-  async execute(product: CreateProductDTO): Promise<void> {
+  async execute(product: CreateProductDTO): Promise<ProductEntity> {
     const targetSlug = product.slug ? product.slug : product.name;
 
     const productEntity = ProductEntity.create({
@@ -25,6 +25,8 @@ export class ProductCreateUseCase {
     });
 
     await this.productRepository.save(productEntity);
+
+    return productEntity;
   }
 
   private async createSlug(value: string): Promise<SlugVO> {
