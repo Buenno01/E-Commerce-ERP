@@ -44,7 +44,7 @@ describe("PRODUCTS:VALUE_OBJECT MoneyVO", () => {
       expect(() => new MoneyVO(amount, currency)).not.toThrow();
       const moneyVO = new MoneyVO(amount, currency);
       expect(moneyVO).toHaveProperty("amount", amount);
-      expect(moneyVO).toHaveProperty("currency", currency);
+      expect(moneyVO).toHaveProperty("currencyCode", currency);
     });
   });
 });
