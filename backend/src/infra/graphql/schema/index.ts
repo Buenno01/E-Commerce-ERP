@@ -1,5 +1,8 @@
 import { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
-import { Mutation as ProductMutation } from "@products/infra/graphql/resolvers";
+import {
+  Mutation as ProductMutation,
+  Query as ProductQuery,
+} from "@products/infra/graphql/resolvers";
 
 const mutation = new GraphQLObjectType({
   name: "Mutation",
@@ -15,6 +18,7 @@ const query = new GraphQLObjectType({
       type: GraphQLString,
       resolve: () => "Hello world!",
     },
+    ...ProductQuery,
   },
 });
 
