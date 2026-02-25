@@ -1,8 +1,10 @@
 import productCreate from "./product-create.resolver";
 import productById from "./product-by-id.resolver";
+import productsQuery from "./products-query.resolver";
 import { ProductType } from "../schemas/product.type";
 import { ProductCreateInput } from "../schemas/product-create-input.type";
-import { GraphQLID } from "graphql";
+import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { ProductConnection } from "../schemas/product-connection.type";
 
 export const Mutation = {
   productCreate: {
@@ -10,7 +12,7 @@ export const Mutation = {
     type: ProductType,
     args: {
       input: {
-        type: ProductCreateInput,
+        type: new GraphQLNonNull(ProductCreateInput),
       },
     },
   },
@@ -21,7 +23,16 @@ export const Query = {
     resolve: productById,
     type: ProductType,
     args: {
-      id: { type: GraphQLID },
+      id: { type: new GraphQLNonNull(GraphQLID) },
+    },
+  },
+  products: {
+    resolve: productsQuery,
+    type: ProductConnection,
+    args: {
+      query: {
+        type: GraphQLString,
+      },
     },
   },
 };
