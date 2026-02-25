@@ -1,7 +1,49 @@
-import { PrismaClient } from "@prisma-generated/client";
+import { Filter, IntFilter, StringFilter } from "@/infra/database/filter";
+import { processFilter } from "@/infra/database/filter-processor";
+import { Prisma, PrismaClient } from "@prisma-generated/client";
 import { ProductEntity } from "@products/domain/entities/product.entity";
-import { ProductRepositoryInterface } from "@products/domain/repositories/product.repository";
+import {
+  ProductFilter,
+  ProductRepositoryInterface,
+} from "@products/domain/repositories/product.repository";
 import { ProductMapper } from "@products/infra/mappers/product-mapper.mapper";
+
+type ProductFilterFields = {
+  name: StringFilter;
+  sku: StringFilter;
+  price: IntFilter;
+};
+
+const processProductFilter = processFilter<
+  ProductFilterFields,
+  Prisma.productWhereInput
+>({
+  name: (f) => ({
+    name: {
+      equals: f.equals,
+      contains: f.contains,
+      startsWith: f.startsWith,
+      mode: "insensitive",
+    },
+  }),
+  sku: (f) => ({
+    sku: {
+      equals: f.equals,
+      contains: f.contains,
+      startsWith: f.startsWith,
+      mode: "insensitive",
+    },
+  }),
+  price: (f) => ({
+    priceAmount: {
+      equals: f.equals,
+      gte: f.gte,
+      lte: f.lte,
+      gt: f.gt,
+      lt: f.lt,
+    },
+  }),
+});
 
 export class PrismaProductRepository implements ProductRepositoryInterface {
   constructor(private readonly prisma: PrismaClient) {}
@@ -47,12 +89,10 @@ export class PrismaProductRepository implements ProductRepositoryInterface {
     return ProductMapper.toDomain(raw);
   }
 
-  async findAll(query?: string): Promise<ProductEntity[]> {
-    if (query) {
-      console.warn("Query string not implemented", query);
-    }
+  async findAll(filters?: ProductFilter): Promise<ProductEntity[]> {
+    const where = processProductFilter(filters as Filter<ProductFilterFields>);
 
-    const raws = await this.prisma.product.findMany();
+    const raws = await this.prisma.product.findMany({ where });
 
     return raws.map(ProductMapper.toDomain);
   }
