@@ -3,6 +3,7 @@ import { PrismaProductRepository } from "@products/infra/database/repositories/p
 import { ProductCreateUseCase } from "@products/application/use-cases/product-create.use-case";
 import { ProductByIdUseCase } from "@products/application/use-cases/product-by-id.use-case";
 import { Container } from "./container";
+import { ProductsQueryUseCase } from "@/modules/products/application/use-cases/products-query.use-case";
 
 const container = new Container();
 
@@ -20,6 +21,12 @@ container.registerSingleton(
 container.registerSingleton(
   ProductByIdUseCase.name,
   () => new ProductByIdUseCase(container.resolve(PrismaProductRepository.name)),
+);
+
+container.registerSingleton(
+  ProductsQueryUseCase.name,
+  () =>
+    new ProductsQueryUseCase(container.resolve(PrismaProductRepository.name)),
 );
 
 export { container };
