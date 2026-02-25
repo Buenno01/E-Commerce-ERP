@@ -5,6 +5,7 @@ import { ProductType } from "../schemas/product.type";
 import { ProductCreateInput } from "../schemas/product-create-input.type";
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { ProductConnection } from "../schemas/product-connection.type";
+import { ProductFilterType } from "../schemas/product-connection-filter.type";
 
 export const Mutation = {
   productCreate: {
@@ -30,8 +31,8 @@ export const Query = {
     resolve: productsQuery,
     type: ProductConnection,
     args: {
-      query: {
-        type: GraphQLString,
+      filters: {
+        type: ProductFilterType,
       },
     },
   },
