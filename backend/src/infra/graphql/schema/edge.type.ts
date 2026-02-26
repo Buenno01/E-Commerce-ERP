@@ -1,4 +1,5 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { encode } from "@/lib/cursor";
 
 export const EdgeType = (ConnectedEntity: GraphQLObjectType) =>
   new GraphQLObjectType({
@@ -10,7 +11,7 @@ export const EdgeType = (ConnectedEntity: GraphQLObjectType) =>
       },
       cursor: {
         type: new GraphQLNonNull(GraphQLString),
-        resolve: (edge) => Buffer.from(edge.id).toString("base64"),
+        resolve: (edge) => encode(edge.id),
       },
     },
   });

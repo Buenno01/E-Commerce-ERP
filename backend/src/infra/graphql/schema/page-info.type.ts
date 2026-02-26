@@ -1,6 +1,5 @@
+import { encode } from "@/lib/cursor";
 import { GraphQLBoolean, GraphQLObjectType, GraphQLString } from "graphql";
-
-const toCursor = (id: string) => Buffer.from(id).toString("base64");
 
 export const PageInfoType = new GraphQLObjectType({
   name: "PageInfo",
@@ -9,14 +8,14 @@ export const PageInfoType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: (connection) => {
         const first = connection.nodes?.[0];
-        return first ? toCursor(first.id) : null;
+        return first ? encode(first.id) : null;
       },
     },
     endCursor: {
       type: GraphQLString,
       resolve: (connection) => {
         const last = connection.nodes?.at(-1);
-        return last ? toCursor(last.id) : null;
+        return last ? encode(last.id) : null;
       },
     },
     hasNextPage: {
