@@ -89,10 +89,18 @@ export class PrismaProductRepository implements ProductRepositoryInterface {
     return ProductMapper.toDomain(raw);
   }
 
-  async findAll(filters?: ProductFilter): Promise<ProductEntity[]> {
+  async findAll(
+    take: number,
+    filters?: ProductFilter,
+    fromProductId?: string,
+  ): Promise<ProductEntity[]> {
     const where = processProductFilter(filters as Filter<ProductFilterFields>);
 
-    const raws = await this.prisma.product.findMany({ where });
+    const raws = await this.prisma.product.findMany({
+      where,
+      take,
+      cursor: fromProductId ? { id: fromProductId } : undefined,
+    });
 
     return raws.map(ProductMapper.toDomain);
   }
