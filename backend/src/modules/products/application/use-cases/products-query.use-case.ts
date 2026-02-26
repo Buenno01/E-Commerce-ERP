@@ -13,34 +13,42 @@ export class ProductsQueryUseCase {
 
   async execute(
     filters: ProductFilter,
-    first: number,
-    before: string,
-    after: string,
+    first?: number,
+    before?: string,
+    after?: string,
   ): Promise<ProductConnectionType> {
     const hasAnyCursor = after || before;
+
+    const extraItems = hasAnyCursor ? 2 : 1;
+
+    const takeMultiplier = (!after && !before) || !!after ? 1 : -1;
+    const originalTake = first ?? 15;
+    const totalToTake = (extraItems + originalTake) * takeMultiplier;
+
     const fromProductId = hasAnyCursor
-      ? cursor.decode(after || before)
+      ? cursor.decode(hasAnyCursor)
       : undefined;
 
-    const takeIsPositive = (!after && !before) || !!after;
-    const take = takeIsPositive ? first : -1 * first;
-
     const nodes = await this.productRepository.findAll(
-      take > 0 ? take + 2 : take - 2,
+      totalToTake,
       filters,
       fromProductId,
     );
 
-    nodes.shift();
+    if (after) {
+      nodes.shift();
+    } else if (before) {
+      nodes.pop();
+    }
 
-    const hasExtraItem = nodes.length > first;
+    const hasExtraItem = nodes.length > originalTake;
 
     if (hasExtraItem) nodes.pop();
 
     return {
       nodes,
-      hasNextPage: takeIsPositive ? hasExtraItem : false,
-      hasPreviousPage: !takeIsPositive ? hasExtraItem : false,
+      hasNextPage: takeMultiplier > 0 ? hasExtraItem : false,
+      hasPreviousPage: takeMultiplier < 0 ? hasExtraItem : false,
     };
   }
 }

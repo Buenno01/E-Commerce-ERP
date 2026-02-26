@@ -100,6 +100,9 @@ export class PrismaProductRepository implements ProductRepositoryInterface {
       where,
       take,
       cursor: fromProductId ? { id: fromProductId } : undefined,
+      orderBy: {
+        name: "asc",
+      },
     });
 
     return raws.map(ProductMapper.toDomain);
