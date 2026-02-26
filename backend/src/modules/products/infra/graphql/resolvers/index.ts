@@ -3,7 +3,7 @@ import productById from "./product-by-id.resolver";
 import productsQuery from "./products-query.resolver";
 import { ProductType } from "../schemas/product.type";
 import { ProductCreateInput } from "../schemas/product-create-input.type";
-import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLID, GraphQLNonNull } from "graphql";
 import { ProductConnection } from "../schemas/product-connection.type";
 import { ProductFilterType } from "../schemas/product-connection-filter.type";
 
@@ -36,8 +36,4 @@ export const Query = {
       },
     },
   },
-};
-
-export default {
-  Mutation,
 };
