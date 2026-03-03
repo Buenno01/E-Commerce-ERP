@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { NameVO } from "@users/domain/value-objects/name.vo";
+import { NameVO } from "@/shared/domain/value-objects/name.vo";
 
 describe("USERS:VALUE_OBJECT NameVO", () => {
   describe("With valid names", () => {

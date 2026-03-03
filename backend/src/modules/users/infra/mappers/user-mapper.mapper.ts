@@ -1,7 +1,7 @@
 import { user as PrismaUser } from "@prisma-generated/client";
 import { UserEntity } from "@users/domain/entities/user.entity";
 import { EmailVO } from "@/shared/domain/value-objects/email.vo";
-import { NameVO } from "@users/domain/value-objects/name.vo";
+import { NameVO } from "@/shared/domain/value-objects/name.vo";
 
 export class UserMapper {
   static toDomain(raw: PrismaUser): UserEntity {

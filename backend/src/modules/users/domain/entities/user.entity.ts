@@ -1,5 +1,5 @@
 import { EmailVO } from "../../../../shared/domain/value-objects/email.vo";
-import { NameVO } from "../value-objects/name.vo";
+import { NameVO } from "../../../../shared/domain/value-objects/name.vo";
 
 interface UserProps {
   id: string;
