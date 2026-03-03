@@ -8,9 +8,9 @@ interface AuthCodeProps {
 }
 
 export class AuthCodeEntity {
-  private readonly _code;
-  private readonly _email;
-  private readonly _createdAt;
+  private readonly _code: AuthCodeVO;
+  private readonly _email: EmailVO;
+  private readonly _createdAt: Date;
 
   constructor(props: AuthCodeProps) {
     this._code = props.code;
