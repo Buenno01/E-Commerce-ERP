@@ -3,9 +3,13 @@ import { AuthCodeEntity } from "../../domain/entities/auth-code.entity";
 import { AuthCodeRepository } from "../../domain/repositories/auth-code.repository";
 import { AuthCodeVO } from "../../domain/value-objects/auth-code.vo";
 import { AuthCodeRequestDTO } from "../dtos/auth-code-request.dto";
+import { EmailSenderService } from "../../domain/services/email-sender.service";
 
 export class AuthCodeRequestUseCase {
-  constructor(private readonly authCodeRepository: AuthCodeRepository) {}
+  constructor(
+    private readonly authCodeRepository: AuthCodeRepository,
+    private readonly emailSender: EmailSenderService,
+  ) {}
 
   async execute({ email }: AuthCodeRequestDTO): Promise<{ message: string }> {
     const alreadyExistingCode =
@@ -22,6 +26,8 @@ export class AuthCodeRequestUseCase {
     });
 
     await this.authCodeRepository.save(authCodeEntity);
+
+    await this.emailSender.sendAuthCode(email, authCodeEntity.code.value);
 
     return {
       message: `An authentication code was sent to "${email}".`,
