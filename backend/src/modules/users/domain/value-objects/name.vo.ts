@@ -18,4 +18,8 @@ export class NameVO {
   get value(): string {
     return this.#value;
   }
+
+  toString() {
+    return this.#value;
+  }
 }
