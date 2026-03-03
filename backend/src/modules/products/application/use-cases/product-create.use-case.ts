@@ -10,6 +10,16 @@ export class ProductCreateUseCase {
   constructor(private readonly productRepository: ProductRepositoryInterface) {}
 
   async execute(product: CreateProductDTO): Promise<ProductEntity> {
+    if (product.sku) {
+      const skuIsAlreadyTaken = await this.productRepository.findBySku(
+        product.sku,
+      );
+
+      if (skuIsAlreadyTaken) {
+        throw new Error("SKU is already taken");
+      }
+    }
+
     const targetSlug = product.slug ? product.slug : product.name;
 
     const productEntity = ProductEntity.create({
