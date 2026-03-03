@@ -3,7 +3,7 @@ import { product as PrismaProduct } from "@prisma-generated/client";
 import { ProductNameVO } from "../../domain/value-objects/product-name.vo";
 import { MoneyVO } from "../../domain/value-objects/money.vo";
 import { SkuVO } from "../../domain/value-objects/sku.vo";
-import { SlugVO } from "../../domain/value-objects/slug.vo";
+import { SlugVO } from "../../../../shared/domain/value-objects/slug.vo";
 
 export class ProductMapper {
   static toDomain(raw: PrismaProduct): ProductEntity {

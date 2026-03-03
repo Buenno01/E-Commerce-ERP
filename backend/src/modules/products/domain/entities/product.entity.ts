@@ -1,7 +1,7 @@
 import { MoneyVO } from "../value-objects/money.vo";
 import { ProductNameVO } from "../value-objects/product-name.vo";
 import { SkuVO } from "../value-objects/sku.vo";
-import { SlugVO } from "../value-objects/slug.vo";
+import { SlugVO } from "../../../../shared/domain/value-objects/slug.vo";
 
 interface ProductProps {
   id: string;

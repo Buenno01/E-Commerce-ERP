@@ -3,7 +3,7 @@ import { ProductRepositoryInterface } from "@products/domain/repositories/produc
 import { MoneyVO } from "@products/domain/value-objects/money.vo";
 import { ProductNameVO } from "@products/domain/value-objects/product-name.vo";
 import { SkuVO } from "@products/domain/value-objects/sku.vo";
-import { SlugVO } from "@products/domain/value-objects/slug.vo";
+import { SlugVO } from "@/shared/domain/value-objects/slug.vo";
 import { CreateProductDTO } from "../dtos/product-create.dto";
 
 export class ProductCreateUseCase {

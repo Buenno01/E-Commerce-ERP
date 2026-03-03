@@ -1,4 +1,4 @@
-import { SlugVO } from "@products/domain/value-objects/slug.vo";
+import { SlugVO } from "@/shared/domain/value-objects/slug.vo";
 import { describe, expect, test } from "vitest";
 
 describe("PRODUCTS:VALUE_OBJECT SlugVO", () => {

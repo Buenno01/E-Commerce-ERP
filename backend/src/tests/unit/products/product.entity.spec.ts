@@ -3,7 +3,7 @@ import { ProductEntity } from "@products/domain/entities/product.entity";
 import { MoneyVO } from "@products/domain/value-objects/money.vo";
 import { ProductNameVO } from "@products/domain/value-objects/product-name.vo";
 import { SkuVO } from "@products/domain/value-objects/sku.vo";
-import { SlugVO } from "@products/domain/value-objects/slug.vo";
+import { SlugVO } from "@/shared/domain/value-objects/slug.vo";
 
 const makeProduct = (
   overrides?: Partial<Parameters<typeof ProductEntity.create>[0]>,
