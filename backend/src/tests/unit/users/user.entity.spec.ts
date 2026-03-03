@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { UserEntity } from "@users/domain/entities/user.entity";
 import { NameVO } from "@/modules/users/domain/value-objects/name.vo";
-import { EmailVO } from "@/modules/users/domain/value-objects/email.vo";
+import { EmailVO } from "@/shared/domain/value-objects/email.vo";
 
 const makeUser = (overrides = {}) =>
   UserEntity.create({

@@ -1,6 +1,6 @@
 import { UserEntity } from "../../domain/entities/user.entity";
 import { UserRepository } from "../../domain/repositories/user.repository";
-import { EmailVO } from "../../domain/value-objects/email.vo";
+import { EmailVO } from "../../../../shared/domain/value-objects/email.vo";
 import { NameVO } from "../../domain/value-objects/name.vo";
 import { UserCreateDTO } from "../dtos/user-create.dto";
 
