@@ -4,10 +4,13 @@ import {
   Query as ProductQuery,
 } from "@products/infra/graphql/resolvers";
 
+import { Mutation as AuthCodeMutation } from "@auth/infra/database/graphql/resolvers";
+
 const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     ...ProductMutation,
+    ...AuthCodeMutation,
   },
 });
 

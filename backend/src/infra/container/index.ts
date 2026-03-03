@@ -4,12 +4,26 @@ import { ProductCreateUseCase } from "@products/application/use-cases/product-cr
 import { ProductByIdUseCase } from "@products/application/use-cases/product-by-id.use-case";
 import { Container } from "./container";
 import { ProductsQueryUseCase } from "@/modules/products/application/use-cases/products-query.use-case";
+import { AuthCodeRequestUseCase } from "@/modules/auth/application/use-cases/auth-code-request.use-case";
+import { PrismaAuthCodeRepository } from "@/modules/auth/infra/database/repositories/prisma-auth-code.repository";
+import { AuthCodeVerifyUseCase } from "@/modules/auth/application/use-cases/auth-code-verify.use-case";
+import { PrismaUserRepository } from "@/modules/users/infra/database/repositories/prisma-user.repository";
 
 const container = new Container();
 
 container.registerSingleton(
   PrismaProductRepository.name,
   () => new PrismaProductRepository(prisma),
+);
+
+container.registerSingleton(
+  PrismaUserRepository.name,
+  () => new PrismaUserRepository(prisma),
+);
+
+container.registerSingleton(
+  PrismaAuthCodeRepository.name,
+  () => new PrismaAuthCodeRepository(prisma),
 );
 
 container.registerSingleton(
@@ -27,6 +41,31 @@ container.registerSingleton(
   ProductsQueryUseCase.name,
   () =>
     new ProductsQueryUseCase(container.resolve(PrismaProductRepository.name)),
+);
+
+container.registerSingleton(
+  AuthCodeRequestUseCase.name,
+  () =>
+    new AuthCodeRequestUseCase(
+      container.resolve(PrismaAuthCodeRepository.name),
+      {
+        sendAuthCode: async (email: string, code: string) => {
+          console.warn(
+            `Email sender not implemented. Should email ${email} with the auth code`,
+          );
+        },
+      },
+      // TODO: add an email sender service later
+    ),
+);
+
+container.registerSingleton(
+  AuthCodeVerifyUseCase.name,
+  () =>
+    new AuthCodeVerifyUseCase(
+      container.resolve(PrismaAuthCodeRepository.name),
+      container.resolve(PrismaUserRepository.name),
+    ),
 );
 
 export { container };
