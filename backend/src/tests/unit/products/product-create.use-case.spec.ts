@@ -11,6 +11,7 @@ const makeRepositoryMock = (): ProductRepositoryInterface => ({
   findById: vi.fn().mockResolvedValue(null),
   findBySlug: vi.fn().mockResolvedValue(null),
   findAll: vi.fn().mockResolvedValue([]),
+  findBySku: vi.fn().mockResolvedValue(null),
 });
 
 const makeDTO = (overrides?: Partial<CreateProductDTO>): CreateProductDTO => ({
