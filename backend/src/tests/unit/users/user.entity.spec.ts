@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 
-import { ProductEntity } from "@users/domain/entities/user.entity";
+import { UserEntity } from "@users/domain/entities/user.entity";
 import { NameVO } from "@/modules/users/domain/value-objects/name.vo";
 import { EmailVO } from "@/modules/users/domain/value-objects/email.vo";
 
 const makeUser = (overrides = {}) =>
-  ProductEntity.create({
+  UserEntity.create({
     id: "123e4567-e89b-12d3-a456-426614174000",
     firstName: new NameVO("John"),
     lastName: new NameVO("Doe"),
@@ -16,10 +16,10 @@ const makeUser = (overrides = {}) =>
   });
 
 describe("USERS:ENTITY UserEntity", () => {
-  describe("ProductEntity.create()", () => {
+  describe("UserEntity.create()", () => {
     test("Should create a valid user", () => {
       const user = makeUser();
-      expect(user).toBeInstanceOf(ProductEntity);
+      expect(user).toBeInstanceOf(UserEntity);
     });
 
     test("Should throw if firstName is invalid", () => {
