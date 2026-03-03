@@ -12,6 +12,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@modules": path.resolve(__dirname, "./src/modules"),
       "@products": path.resolve(__dirname, "./src/modules/products"),
+      "@users": path.resolve(__dirname, "./src/modules/users"),
       "@infra": path.resolve(__dirname, "./src/infra"),
       "@prisma-generated": path.resolve(
         __dirname,
