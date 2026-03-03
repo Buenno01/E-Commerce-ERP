@@ -23,6 +23,7 @@
       "@modules/*": ["./modules/*"],
       "@products/*": ["./modules/products/*"],
       "@users/*": ["./modules/users/*"],
+      "@auth/*": ["./modules/auth/*"],
       "@infra/*": ["./infra/*"],
       "@prisma-generated/*": ["./infra/prisma/generated/*"]
     }
