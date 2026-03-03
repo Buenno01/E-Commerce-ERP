@@ -3,8 +3,8 @@ import { NameVO } from "../value-objects/name.vo";
 
 interface UserProps {
   id: string;
-  firstName: NameVO;
-  lastName: NameVO;
+  firstName?: NameVO;
+  lastName?: NameVO;
   email: EmailVO;
   createdAt: Date;
   updatedAt: Date;
@@ -12,8 +12,8 @@ interface UserProps {
 
 export class UserEntity {
   private readonly _id: string;
-  private _firstName: NameVO;
-  private _lastName: NameVO;
+  private _firstName?: NameVO;
+  private _lastName?: NameVO;
   private _email: EmailVO;
   private _createdAt: Date;
   private _updatedAt: Date;
@@ -35,7 +35,9 @@ export class UserEntity {
     return this._id;
   }
   get name() {
-    return this._firstName + " " + this._lastName;
+    const merged = (this._firstName + " " + this._lastName).trim();
+    if ((!this._firstName && !this._lastName) || !merged) return undefined;
+    return merged;
   }
   get firstName() {
     return this._firstName;

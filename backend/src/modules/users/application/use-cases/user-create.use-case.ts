@@ -13,8 +13,6 @@ export class UserCreateUseCase {
     const userEntity = UserEntity.create({
       id: crypto.randomUUID(),
       email: new EmailVO(user.email),
-      firstName: new NameVO(user.firstName),
-      lastName: new NameVO(user.lastName),
       createdAt: date,
       updatedAt: date,
     });
