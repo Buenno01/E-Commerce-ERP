@@ -14,8 +14,6 @@ const makeRepositoryMock = (): UserRepository => ({
 });
 
 const makeDTO = (overrides?: Partial<UserCreateDTO>): UserCreateDTO => ({
-  firstName: "John",
-  lastName: "Doe",
   email: "john.doe@example.com",
   ...overrides,
 });
@@ -43,18 +41,6 @@ describe("UserCreateUseCase", () => {
       expect(repository.save).toHaveBeenCalledWith(expect.any(UserEntity));
     });
 
-    it("should set firstName correctly", async () => {
-      const result = await useCase.execute(makeDTO({ firstName: "Jane" }));
-
-      expect(result.firstName.value).toBe("Jane");
-    });
-
-    it("should set lastName correctly", async () => {
-      const result = await useCase.execute(makeDTO({ lastName: "Smith" }));
-
-      expect(result.lastName.value).toBe("Smith");
-    });
-
     it("should set email correctly", async () => {
       const result = await useCase.execute(
         makeDTO({ email: "jane.smith@example.com" }),
@@ -74,18 +60,6 @@ describe("UserCreateUseCase", () => {
       const result = await useCase.execute(makeDTO());
 
       expect(result.createdAt).toEqual(result.updatedAt);
-    });
-
-    it("should throw if firstName is invalid", async () => {
-      await expect(
-        useCase.execute(makeDTO({ firstName: "Ab" })),
-      ).rejects.toThrow("Name must have at least 3 characters");
-    });
-
-    it("should throw if lastName is invalid", async () => {
-      await expect(
-        useCase.execute(makeDTO({ lastName: "Ab" })),
-      ).rejects.toThrow("Name must have at least 3 characters");
     });
 
     it("should throw if email is invalid", async () => {
