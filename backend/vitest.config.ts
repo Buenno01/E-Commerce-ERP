@@ -1,7 +1,7 @@
 import path from "node:path";
 import { defineConfig } from "vitest/config";
 
-const MODULES = ["products", "users", "auth"];
+const MODULES = ["products", "users", "auth", "shops"];
 
 const modulesPathResolvers = MODULES.reduce(
   (acc, cur) => {

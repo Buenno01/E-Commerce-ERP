@@ -24,6 +24,7 @@
       "@products/*": ["./modules/products/*"],
       "@users/*": ["./modules/users/*"],
       "@auth/*": ["./modules/auth/*"],
+      "@shops/*": ["./modules/shops/*"],
       "@infra/*": ["./infra/*"],
       "@prisma-generated/*": ["./infra/prisma/generated/*"]
     }
