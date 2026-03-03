@@ -8,8 +8,11 @@ import { AuthCodeRequestUseCase } from "@/modules/auth/application/use-cases/aut
 import { PrismaAuthCodeRepository } from "@/modules/auth/infra/database/repositories/prisma-auth-code.repository";
 import { AuthCodeVerifyUseCase } from "@/modules/auth/application/use-cases/auth-code-verify.use-case";
 import { PrismaUserRepository } from "@/modules/users/infra/database/repositories/prisma-user.repository";
+import { ResenderEmailSenderService } from "../services/resender-email-sender.service";
 
 const container = new Container();
+
+// Prisma repositories
 
 container.registerSingleton(
   PrismaProductRepository.name,
@@ -25,6 +28,15 @@ container.registerSingleton(
   PrismaAuthCodeRepository.name,
   () => new PrismaAuthCodeRepository(prisma),
 );
+
+// Services
+
+container.registerSingleton(
+  ResenderEmailSenderService.name,
+  () => new ResenderEmailSenderService(),
+);
+
+// Use cases
 
 container.registerSingleton(
   ProductCreateUseCase.name,
@@ -48,14 +60,7 @@ container.registerSingleton(
   () =>
     new AuthCodeRequestUseCase(
       container.resolve(PrismaAuthCodeRepository.name),
-      {
-        sendAuthCode: async (email: string, code: string) => {
-          console.warn(
-            `Email sender not implemented. Should email ${email} with the auth code`,
-          );
-        },
-      },
-      // TODO: add an email sender service later
+      container.resolve(ResenderEmailSenderService.name),
     ),
 );
 
