@@ -30,10 +30,11 @@ export class AuthCodeVerifyUseCase {
 
     const now = new Date();
 
-    if (
-      authCodeEntity.code.value !== code ||
-      now.getTime() - authCodeEntity.createdAt.getTime() > FIVE_MINUTES
-    ) {
+    if (authCodeEntity.code.value !== code) {
+      throw new Error("This code is not valid or has expired.");
+    }
+
+    if (now.getTime() - authCodeEntity.createdAt.getTime() > FIVE_MINUTES) {
       await this.authCodeRepository.deleteByEmail(email);
       throw new Error("This code is not valid or has expired.");
     }
