@@ -11,6 +11,7 @@ export class AuthCodeRequestUseCase {
     const authCodeEntity = new AuthCodeEntity({
       email: new EmailVO(props.email),
       code: new AuthCodeVO(),
+      createdAt: new Date(),
     });
 
     await this.authCodeRepository.save(authCodeEntity);
