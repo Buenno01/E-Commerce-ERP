@@ -89,6 +89,16 @@ export class PrismaProductRepository implements ProductRepositoryInterface {
     return ProductMapper.toDomain(raw);
   }
 
+  async findBySku(sku: string): Promise<ProductEntity | null> {
+    const raw = await this.prisma.product.findUnique({
+      where: { sku },
+    });
+
+    if (!raw) return null;
+
+    return ProductMapper.toDomain(raw);
+  }
+
   async findAll(
     take: number,
     filters?: ProductFilter,

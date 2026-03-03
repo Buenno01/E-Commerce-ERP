@@ -19,6 +19,7 @@ export interface ProductRepositoryInterface {
   update(product: ProductEntity): Promise<void>;
   findById(id: string): Promise<ProductEntity | null>;
   findBySlug(slug: string): Promise<ProductEntity | null>;
+  findBySku(sku: string): Promise<ProductEntity | null>;
   findAll(
     take: number,
     filters?: ProductFilter,
