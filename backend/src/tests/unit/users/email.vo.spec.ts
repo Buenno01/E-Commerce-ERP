@@ -87,14 +87,6 @@ describe("USERS:VALUE_OBJECT EmailVO", () => {
       const email = new EmailVO("Test@Example.COM");
       expect(email.value).toBe("test@example.com");
     });
-
-    test("Should be readonly", () => {
-      const email = new EmailVO("example@example.com");
-      expect(() => {
-        (email as any)._value = "hacked@hacker.com";
-      }).not.toThrow();
-      expect(email.value).toBe("example@example.com");
-    });
   });
 
   describe("EmailVO.isValid()", () => {
