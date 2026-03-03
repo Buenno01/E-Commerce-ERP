@@ -102,14 +102,12 @@ describe("AUTH:USE_CASE AuthCodeVerifyUseCase", () => {
       );
     });
 
-    it("should delete the auth code when code is invalid", async () => {
+    it("should not delete the auth code when code is invalid", async () => {
       await expect(
         useCase.execute({ email: VALID_EMAIL, code: "000000" }),
       ).rejects.toThrow();
 
-      expect(authCodeRepository.deleteByEmail).toHaveBeenCalledWith(
-        VALID_EMAIL,
-      );
+      expect(authCodeRepository.deleteByEmail).not.toHaveBeenCalled();
     });
 
     it("should delete the auth code after successful verification", async () => {
