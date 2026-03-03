@@ -21,7 +21,7 @@ export class AuthCodeRequestUseCase {
 
     const authCodeEntity = new AuthCodeEntity({
       email: new EmailVO(email),
-      code: new AuthCodeVO(),
+      code: AuthCodeVO.generate(),
       createdAt: new Date(),
     });
 

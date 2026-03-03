@@ -5,11 +5,8 @@ import { EmailVO } from "@/shared/domain/value-objects/email.vo";
 
 export class AuthCodeMapper {
   static toDomain(raw: PrismaAuthCode): AuthCodeEntity {
-    const codeVO = Object.create(AuthCodeVO.prototype) as AuthCodeVO;
-    Object.defineProperty(codeVO, "_value", { value: raw.code });
-
     return AuthCodeEntity.create({
-      code: codeVO,
+      code: AuthCodeVO.restore(raw.code),
       email: new EmailVO(raw.email),
       createdAt: raw.createdAt,
     });

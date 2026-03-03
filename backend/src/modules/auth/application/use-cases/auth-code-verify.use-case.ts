@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 import { UserRepository } from "@/modules/users/domain/repositories/user.repository";
 import { AuthCodeRepository } from "../../domain/repositories/auth-code.repository";
@@ -18,11 +18,11 @@ export class AuthCodeVerifyUseCase {
     email,
     code,
   }: AuthCodeVerifyDTO): Promise<{ token: string }> {
-    const emailVO = new EmailVO(email);
+    if (!EmailVO.isValid(email)) {
+      throw new Error("Invalid email");
+    }
 
-    const authCodeEntity = await this.authCodeRepository.findByEmail(
-      emailVO.value,
-    );
+    const authCodeEntity = await this.authCodeRepository.findByEmail(email);
 
     if (!authCodeEntity) {
       throw new Error("This code is not valid or has expired.");
@@ -34,19 +34,19 @@ export class AuthCodeVerifyUseCase {
       authCodeEntity.code.value !== code ||
       now.getTime() - authCodeEntity.createdAt.getTime() > FIVE_MINUTES
     ) {
-      await this.authCodeRepository.deleteByEmail(emailVO.value);
+      await this.authCodeRepository.deleteByEmail(email);
       throw new Error("This code is not valid or has expired.");
     }
 
-    await this.authCodeRepository.deleteByEmail(emailVO.value);
+    await this.authCodeRepository.deleteByEmail(email);
 
-    const existingUser = await this.userRepository.findByEmail(emailVO.value);
+    const existingUser = await this.userRepository.findByEmail(email);
 
     let userEntity = existingUser as UserEntity;
 
     if (!existingUser) {
       userEntity = UserEntity.create({
-        email: emailVO,
+        email: new EmailVO(email),
         createdAt: new Date(),
         updatedAt: new Date(),
         id: crypto.randomUUID(),
@@ -56,7 +56,7 @@ export class AuthCodeVerifyUseCase {
     }
 
     const token = jwt.sign(
-      { sub: userEntity.id, email: userEntity.email.value },
+      { sub: userEntity.id, email: new EmailVO(email).value },
       process.env.JWT_SECRET!,
     );
 
