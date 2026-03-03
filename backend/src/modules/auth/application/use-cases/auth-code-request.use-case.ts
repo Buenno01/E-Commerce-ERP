@@ -7,9 +7,16 @@ import { AuthCodeRequestDTO } from "../dtos/auth-code-request.dto";
 export class AuthCodeRequestUseCase {
   constructor(private readonly authCodeRepository: AuthCodeRepository) {}
 
-  async execute(props: AuthCodeRequestDTO): Promise<{ message: string }> {
+  async execute({ email }: AuthCodeRequestDTO): Promise<{ message: string }> {
+    const alreadyExistingCode =
+      await this.authCodeRepository.findByEmail(email);
+
+    if (alreadyExistingCode) {
+      await this.authCodeRepository.deleteByEmail(email);
+    }
+
     const authCodeEntity = new AuthCodeEntity({
-      email: new EmailVO(props.email),
+      email: new EmailVO(email),
       code: new AuthCodeVO(),
       createdAt: new Date(),
     });
@@ -17,7 +24,7 @@ export class AuthCodeRequestUseCase {
     await this.authCodeRepository.save(authCodeEntity);
 
     return {
-      message: `An authentication code was sent to "${props.email}".`,
+      message: `An authentication code was sent to "${email}".`,
     };
   }
 }
