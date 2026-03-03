@@ -3,19 +3,27 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { AuthCodeRequestUseCase } from "@auth/application/use-cases/auth-code-request.use-case";
 import { AuthCodeRepository } from "@auth/domain/repositories/auth-code.repository";
 import { AuthCodeEntity } from "@auth/domain/entities/auth-code.entity";
+import { EmailSenderService } from "@/modules/auth/domain/services/email-sender.service";
 
 const makeRepositoryMock = (): AuthCodeRepository => ({
   save: vi.fn().mockResolvedValue(undefined),
   findByEmail: vi.fn().mockResolvedValue(null),
+  deleteByEmail: vi.fn().mockResolvedValue(undefined),
+});
+
+const makeEmailSenderServiceMock = (): EmailSenderService => ({
+  sendAuthCode: vi.fn().mockResolvedValue(undefined),
 });
 
 describe("AUTH:USE_CASE AuthCodeRequestUseCase", () => {
   let repository: AuthCodeRepository;
+  let emailSender: EmailSenderService;
   let useCase: AuthCodeRequestUseCase;
 
   beforeEach(() => {
     repository = makeRepositoryMock();
-    useCase = new AuthCodeRequestUseCase(repository);
+    emailSender = makeEmailSenderServiceMock();
+    useCase = new AuthCodeRequestUseCase(repository, emailSender);
   });
 
   describe("execute", () => {
@@ -38,6 +46,12 @@ describe("AUTH:USE_CASE AuthCodeRequestUseCase", () => {
       const result = await useCase.execute({ email: "another@example.com" });
 
       expect(result.message).toContain("another@example.com");
+    });
+
+    it("should call the email sender after saving the code on database", async () => {
+      await useCase.execute({ email: "user@example.com" });
+
+      expect(emailSender.sendAuthCode).toHaveBeenCalledOnce();
     });
 
     it("should throw if email is invalid", async () => {
