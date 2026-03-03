@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { EmailVO } from "@/modules/users/domain/value-objects/email.vo";
+import { EmailVO } from "@users/domain/value-objects/email.vo";
 
 describe("USERS:VALUE_OBJECT EmailVO", () => {
   describe("With valid emails", () => {

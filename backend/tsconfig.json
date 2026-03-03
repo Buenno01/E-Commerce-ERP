@@ -22,6 +22,7 @@
       "@/*": ["./*"],
       "@modules/*": ["./modules/*"],
       "@products/*": ["./modules/products/*"],
+      "@users/*": ["./modules/users/*"],
       "@infra/*": ["./infra/*"],
       "@prisma-generated/*": ["./infra/prisma/generated/*"]
     }
