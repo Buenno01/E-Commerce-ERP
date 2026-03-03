@@ -1,12 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-class EmailVO {
-  value: any;
-  constructor(props: any) {}
-
-  equals(props: any) {}
-  static isValid(props: any) {}
-}
+import { EmailVO } from "@/modules/users/domain/value-objects/email.vo";
 
 describe("USERS:VALUE_OBJECT EmailVO", () => {
   describe("With valid emails", () => {
