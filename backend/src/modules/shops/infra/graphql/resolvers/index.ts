@@ -3,7 +3,7 @@ import { ShopType } from "../schemas/shop.type";
 import shopCreate from "./shop-create.resolver";
 
 export const Mutation = {
-  productCreate: {
+  shopCreate: {
     resolve: shopCreate,
     type: ShopType,
     args: {

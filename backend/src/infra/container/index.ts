@@ -9,6 +9,8 @@ import { PrismaAuthCodeRepository } from "@/modules/auth/infra/database/reposito
 import { AuthCodeVerifyUseCase } from "@/modules/auth/application/use-cases/auth-code-verify.use-case";
 import { PrismaUserRepository } from "@/modules/users/infra/database/repositories/prisma-user.repository";
 import { ResenderEmailSenderService } from "../services/resender-email-sender.service";
+import { PrismaShopRepository } from "@/modules/shops/infra/database/repositories/shop.repository";
+import { ShopCreateUseCase } from "@/modules/shops/application/use-cases/shop-create.use-case";
 
 const container = new Container();
 
@@ -26,6 +28,11 @@ container.registerSingleton(
 
 container.registerSingleton(
   PrismaAuthCodeRepository.name,
+  () => new PrismaAuthCodeRepository(prisma),
+);
+
+container.registerSingleton(
+  PrismaShopRepository.name,
   () => new PrismaAuthCodeRepository(prisma),
 );
 
@@ -71,6 +78,11 @@ container.registerSingleton(
       container.resolve(PrismaAuthCodeRepository.name),
       container.resolve(PrismaUserRepository.name),
     ),
+);
+
+container.registerSingleton(
+  ShopCreateUseCase.name,
+  () => new ShopCreateUseCase(container.resolve(PrismaShopRepository.name)),
 );
 
 export { container };
