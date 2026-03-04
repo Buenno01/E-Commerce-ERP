@@ -7,6 +7,8 @@ export class PrismaShopRepository implements ShopRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async save(shop: ShopEntity): Promise<void> {
+    console.log(JSON.stringify(shop));
+
     const raw = ShopMapper.toPersistence(shop);
 
     await this.prisma.shop.create({
