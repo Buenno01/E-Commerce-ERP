@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma-generated/client";
 import { AuthCodeEntity } from "@auth/domain/entities/auth-code.entity";
 import { AuthCodeRepository } from "@auth/domain/repositories/auth-code.repository";
-import { AuthCodeMapper } from "../mappers/auth-code-mapper.mapper";
+import { AuthCodeMapper } from "../../mappers/auth-code-mapper.mapper";
 
 export class PrismaAuthCodeRepository implements AuthCodeRepository {
   constructor(private readonly prisma: PrismaClient) {}

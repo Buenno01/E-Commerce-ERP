@@ -3,7 +3,7 @@ import {
   Mutation as ProductMutation,
   Query as ProductQuery,
 } from "@products/infra/graphql/resolvers";
-import { Mutation as AuthCodeMutation } from "@auth/infra/database/graphql/resolvers";
+import { Mutation as AuthCodeMutation } from "@/modules/auth/infra/graphql/resolvers";
 import { Mutation as ShopMutation } from "@shops/infra/graphql/resolvers";
 
 const mutation = new GraphQLObjectType({
