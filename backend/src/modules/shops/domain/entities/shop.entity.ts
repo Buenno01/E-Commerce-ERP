@@ -3,6 +3,7 @@ import { SlugVO } from "@/shared/domain/value-objects/slug.vo";
 
 interface ShopProps {
   id: string;
+  ownerId: string;
   name: NameVO;
   slug: SlugVO;
   createdAt: Date;
@@ -15,6 +16,7 @@ export class ShopEntity {
   private _slug: SlugVO;
   private _createdAt: Date;
   private _updatedAt: Date;
+  private _ownerId: string;
 
   private constructor(private props: ShopProps) {
     this._id = this.props.id;
@@ -22,6 +24,7 @@ export class ShopEntity {
     this._slug = this.props.slug;
     this._createdAt = this.props.createdAt;
     this._updatedAt = this.props.updatedAt;
+    this._ownerId = this.props.ownerId;
   }
 
   static create(props: ShopProps): ShopEntity {
@@ -42,5 +45,8 @@ export class ShopEntity {
   }
   get updatedAt() {
     return this._updatedAt;
+  }
+  get ownerId() {
+    return this._ownerId;
   }
 }

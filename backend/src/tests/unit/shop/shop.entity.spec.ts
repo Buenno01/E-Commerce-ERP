@@ -6,6 +6,7 @@ import { SlugVO } from "@/shared/domain/value-objects/slug.vo";
 
 const makeShop = (overrides?: Partial<{ name: NameVO; slug: SlugVO }>) =>
   ShopEntity.create({
+    ownerId: "123e4567-e89b-12d3-a456-426614174000",
     id: "123e4567-e89b-12d3-a456-426614174000",
     name: new NameVO("My Shop"),
     slug: new SlugVO("my-shop"),
@@ -65,6 +66,7 @@ describe("SHOPS:ENTITY ShopEntity", () => {
     test("should return the correct updatedAt date", () => {
       const updatedAt = new Date("2024-06-01");
       const shop = ShopEntity.create({
+        ownerId: "123e4567-e89b-12d3-a456-426614174000",
         id: "123e4567-e89b-12d3-a456-426614174000",
         name: new NameVO("My Shop"),
         slug: new SlugVO("my-shop"),
