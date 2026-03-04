@@ -34,10 +34,23 @@ model user {
   lastName  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  shops shop[]
 }
 
 model authCode {
   code      String   
   email     String   @unique
   createdAt DateTime @default(now())
+}
+
+model shop {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner user @relation(fields: [ownerId], references: [id])
 }
