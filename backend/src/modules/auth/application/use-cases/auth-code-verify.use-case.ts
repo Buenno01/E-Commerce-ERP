@@ -59,6 +59,7 @@ export class AuthCodeVerifyUseCase {
     const token = jwt.sign(
       { sub: userEntity.id, email: new EmailVO(email).value },
       process.env.JWT_SECRET!,
+      { expiresIn: "7d" },
     );
 
     return {
